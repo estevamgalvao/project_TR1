@@ -9,7 +9,7 @@ class ApplicationLayer {
     
     public:
         ApplicationLayer();
-        void start();
+        void start(int flag, std::string m);
 };
 
 #endif //APPLICATIONLAYER_H
