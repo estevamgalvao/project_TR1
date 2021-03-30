@@ -5,11 +5,13 @@
 
 class ApplicationLayer {
     protected:
+        std::string message_;
         std::vector<std::bitset<BYTE_LENGTH>> bitstream_;
     
     public:
-        ApplicationLayer();
-        void start(int flag, std::string m);
+        ApplicationLayer(std::string m);
+        void Communicate();
+
 };
 
 #endif //APPLICATIONLAYER_H
