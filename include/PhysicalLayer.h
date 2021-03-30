@@ -4,18 +4,30 @@
 #include "Definitions.h"
 
 class PhysicalLayer {
-    private:
+    protected:
         char data_;
         char bitstream_;
 
     public:
         PhysicalLayer();
-        bool Encode();
-        bool Decode();
+        virtual bool Encode();
+        virtual bool Decode();
         bool Send();
         bool Recieve();
         
 
-}
+};
+
+class BinaryCodification : public PhysicalLayer {
+
+};
+
+class ManchesterCodification : public PhysicalLayer {
+
+};
+
+class BipolarCodification : public PhysicalLayer {
+    
+};
 
 #endif //PHYSICALLAYER_H
