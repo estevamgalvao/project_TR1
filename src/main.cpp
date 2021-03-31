@@ -1,15 +1,14 @@
-#include <Definitions.h>
+#include "Definitions.h"
 #include "ApplicationLayer.h"
 #include "PhysicalLayer.h"
 
-int main();
+int main()
 {
     std::string input;
     std::getline (std::cin,input);
-    ApplicationLayer appLayer(input);
+    ApplicationLayer appLayer();
     
-    std::vector<std::bitset<BYTE_LENGTH>> teste;
-    std::vector<std::bitset<BYTE_LENGTH>>::iterator it;
+    BITSET_VECTOR teste;
 
     for (size_t i = 0; i < input.size(); i++)
     {
@@ -32,4 +31,4 @@ int main();
     std::cout << "\nTA BELEZA\n" << output;
 
     return 0;
-}
+};

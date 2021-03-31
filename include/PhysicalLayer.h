@@ -5,8 +5,8 @@
 
 class PhysicalLayer {
     protected:
-        char data_;
-        char bitstream_;
+        char table_;
+        char bit_stream_;
 
     public:
         PhysicalLayer();

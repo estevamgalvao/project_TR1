@@ -1,16 +1,18 @@
 #ifndef APPLICATIONLAYER_H
 #define APPLICATIONLAYER_H
 
-#include <Definitions.h>
+#include "Definitions.h"
 
 class ApplicationLayer {
     protected:
         std::string message_;
-        std::vector<std::bitset<BYTE_LENGTH>> bitstream_;
+        BITSET_VECTOR bit_stream_;
     
     public:
-        ApplicationLayer(std::string m);
-        void Communicate();
+        ApplicationLayer();
+        BITSET_VECTOR GetBitStream();
+        void Send();
+        void Recieve();
 
 };
 
