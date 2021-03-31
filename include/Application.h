@@ -3,7 +3,7 @@
 
 class Application {
     public:
-        Application();
+        Application(int role_option);
 };
 
 

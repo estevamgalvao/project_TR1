@@ -11,8 +11,9 @@ class ApplicationLayer {
     public:
         ApplicationLayer();
         BITSET_VECTOR GetBitStream();
-        void Send();
-        void Recieve();
+        void SetBitStream();
+        void PrintBitStream();
+        void Receive();
 
 };
 

@@ -5,29 +5,37 @@
 
 class PhysicalLayer {
     protected:
-        char table_;
-        char bit_stream_;
+        BITSET_VECTOR decoded_table_;
+        BITSET_VECTOR encoded_table_;
 
     public:
-        PhysicalLayer();
-        virtual bool Encode();
-        virtual bool Decode();
-        bool Send();
-        bool Recieve();
-        
-
+        virtual ~PhysicalLayer() {};
+        virtual void Encode(BITSET_VECTOR table) = 0;
+        virtual void Decode(BITSET_VECTOR table) = 0;
+        virtual void PrintDecodedTable() = 0;        
+        virtual void PrintEncodedTable() = 0;
+        virtual BITSET_VECTOR GetEncodedTable() = 0;
+        virtual BITSET_VECTOR GetDecodedTable() = 0;
 };
 
 class BinaryCodification : public PhysicalLayer {
+    public:
+        BinaryCodification();
+        void Encode(BITSET_VECTOR table);
+        void Decode(BITSET_VECTOR table);
+        void PrintDecodedTable();        
+        void PrintEncodedTable();
+        BITSET_VECTOR GetEncodedTable();
+        BITSET_VECTOR GetDecodedTable();
 
 };
 
-class ManchesterCodification : public PhysicalLayer {
+// class ManchesterCodification : public PhysicalLayer {
 
-};
+// };
 
-class BipolarCodification : public PhysicalLayer {
+// class BipolarCodification : public PhysicalLayer {
     
-};
+// };
 
 #endif //PHYSICALLAYER_H
