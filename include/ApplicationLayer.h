@@ -10,10 +10,11 @@ class ApplicationLayer {
     
     public:
         ApplicationLayer();
+        void SetBitStream(std::string message);
         BITSET_VECTOR GetBitStream();
-        void SetBitStream();
+        std::string GetMessage();
         void PrintBitStream();
-        void Receive();
+        void Translate(BITSET_VECTOR bit_stream);
 
 };
 

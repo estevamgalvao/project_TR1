@@ -2,12 +2,23 @@
 #include "PhysicalLayer.h"
 
 ApplicationLayer::ApplicationLayer() {
-    std::cout << "Application layer initiated";
+    // std::cout << "Application layer initiated.\n";
 };
+
+void ApplicationLayer::SetBitStream(std::string message) {
+    for (size_t i = 0; i < message.size(); i++)
+    {
+        bit_stream_.push_back((std::bitset<BYTE_LENGTH>) message[i]);
+    }
+}
 
 BITSET_VECTOR ApplicationLayer::GetBitStream() {
     return bit_stream_;
 };
+
+std::string ApplicationLayer::GetMessage() {
+    return message_;
+}
 
 void ApplicationLayer::PrintBitStream() {
     for (size_t i = 0; i < bit_stream_.size()-1; i++)
@@ -17,22 +28,13 @@ void ApplicationLayer::PrintBitStream() {
     std::cout << bit_stream_[bit_stream_.size()-1] << "\n";
 };
 
-void ApplicationLayer::Receive() {
+void ApplicationLayer::Translate(BITSET_VECTOR bit_stream) {
     message_.clear();
-    for (size_t i = 0; i < bit_stream_.size(); i++)
+    for (size_t i = 0; i < bit_stream.size(); i++)
     {
         /* A linguagem sabe transformar u long int para char,
         por isso fazemos assim */
-        message_ += (char) bit_stream_[i].to_ulong();
+        message_ += (char) bit_stream[i].to_ulong();
     }
 };
 
-void ApplicationLayer::SetBitStream() {
-    std::cout << "Enter the desired message: ";
-    std::getline (std::cin,message_);
-
-    for (size_t i = 0; i < message_.size(); i++)
-    {
-        bit_stream_.push_back((std::bitset<BYTE_LENGTH>) message_[i]);
-    }
-}

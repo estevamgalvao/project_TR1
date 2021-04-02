@@ -10,7 +10,7 @@ class TransmissionEnvironment {
 
     public:
         TransmissionEnvironment();
-        void Transmit(std::vector<std::bitset<BYTE_LENGTH>> bit_stream);
+        BITSET_VECTOR Transmit(std::vector<std::bitset<BYTE_LENGTH>> bit_stream);
 };
 
 
