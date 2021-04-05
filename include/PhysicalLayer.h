@@ -12,10 +12,10 @@ class PhysicalLayer {
         virtual ~PhysicalLayer() {};
         virtual void Encode(BITSET_VECTOR table) = 0;
         virtual void Decode(BITSET_VECTOR table) = 0;
-        virtual void PrintDecodedTable() = 0;        
-        virtual void PrintEncodedTable() = 0;
-        virtual BITSET_VECTOR GetEncodedTable() = 0;
-        virtual BITSET_VECTOR GetDecodedTable() = 0;
+        void PrintDecodedTable();        
+        void PrintEncodedTable();
+        BITSET_VECTOR GetEncodedTable();
+        BITSET_VECTOR GetDecodedTable();
 };
 
 class BinaryCodification : public PhysicalLayer {
@@ -23,11 +23,6 @@ class BinaryCodification : public PhysicalLayer {
         BinaryCodification();
         void Encode(BITSET_VECTOR table);
         void Decode(BITSET_VECTOR table);
-        void PrintDecodedTable();        
-        void PrintEncodedTable();
-        BITSET_VECTOR GetEncodedTable();
-        BITSET_VECTOR GetDecodedTable();
-
 };
 
 class ManchesterCodification : public PhysicalLayer {
@@ -35,10 +30,6 @@ class ManchesterCodification : public PhysicalLayer {
         ManchesterCodification();
         void Encode(BITSET_VECTOR table);
         void Decode(BITSET_VECTOR table);
-        void PrintDecodedTable();        
-        void PrintEncodedTable();
-        BITSET_VECTOR GetEncodedTable();
-        BITSET_VECTOR GetDecodedTable();
 };
 
 // class BipolarCodification : public PhysicalLayer {

@@ -39,7 +39,9 @@ int main()
 
     lula.SetBitStream(message);
     lol.Encode(lula.GetBitStream());
-
+    lol.PrintEncodedTable();
+    lol.Decode(lol.GetEncodedTable());
+    lol.PrintDecodedTable();
 
 
     return 0;

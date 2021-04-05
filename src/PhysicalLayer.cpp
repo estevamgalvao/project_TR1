@@ -1,5 +1,31 @@
 #include "PhysicalLayer.h"
 
+void PhysicalLayer::PrintEncodedTable() {
+    for (size_t i = 0; i < encoded_table_.size()-1; i++)
+    {
+        std::cout << encoded_table_[i] << " ";
+    }
+    std::cout << encoded_table_[encoded_table_.size()-1] << "\n";
+}
+
+void PhysicalLayer::PrintDecodedTable() {
+    for (size_t i = 0; i < decoded_table_.size()-1; i++)
+    {
+        std::cout << decoded_table_[i] << " ";
+    }
+    std::cout << decoded_table_[decoded_table_.size()-1] << "\n";
+}
+
+BITSET_VECTOR PhysicalLayer::GetEncodedTable() {
+    return encoded_table_;
+};
+
+BITSET_VECTOR PhysicalLayer::GetDecodedTable() {
+    return decoded_table_;
+};
+
+
+
 BinaryCodification::BinaryCodification() {
 
 }
@@ -17,29 +43,29 @@ void BinaryCodification::Decode(BITSET_VECTOR table) {
 }
 
 
-void BinaryCodification::PrintEncodedTable() {
-    for (size_t i = 0; i < encoded_table_.size()-1; i++)
-    {
-        std::cout << encoded_table_[i] << " ";
-    }
-    std::cout << encoded_table_[encoded_table_.size()-1] << "\n";
-}
+// void BinaryCodification::PrintEncodedTable() {
+//     for (size_t i = 0; i < encoded_table_.size()-1; i++)
+//     {
+//         std::cout << encoded_table_[i] << " ";
+//     }
+//     std::cout << encoded_table_[encoded_table_.size()-1] << "\n";
+// }
 
-void BinaryCodification::PrintDecodedTable() {
-    for (size_t i = 0; i < decoded_table_.size()-1; i++)
-    {
-        std::cout << decoded_table_[i] << " ";
-    }
-    std::cout << decoded_table_[decoded_table_.size()-1] << "\n";
-}
+// void BinaryCodification::PrintDecodedTable() {
+//     for (size_t i = 0; i < decoded_table_.size()-1; i++)
+//     {
+//         std::cout << decoded_table_[i] << " ";
+//     }
+//     std::cout << decoded_table_[decoded_table_.size()-1] << "\n";
+// }
 
-BITSET_VECTOR BinaryCodification::GetEncodedTable() {
-    return encoded_table_;
-};
+// BITSET_VECTOR BinaryCodification::GetEncodedTable() {
+//     return encoded_table_;
+// };
 
-BITSET_VECTOR BinaryCodification::GetDecodedTable() {
-    return decoded_table_;
-};
+// BITSET_VECTOR BinaryCodification::GetDecodedTable() {
+//     return decoded_table_;
+// };
 
 
 
@@ -105,8 +131,51 @@ void ManchesterCodification::Encode(BITSET_VECTOR table) {
     
 };
 
-void ManchesterCodification::Decode(BITSET_VECTOR table){};
-void ManchesterCodification::PrintDecodedTable(){};        
-void ManchesterCodification::PrintEncodedTable(){};
-BITSET_VECTOR ManchesterCodification::GetEncodedTable(){};
-BITSET_VECTOR ManchesterCodification::GetDecodedTable(){};
+void ManchesterCodification::Decode(BITSET_VECTOR table){
+    BITSET_VECTOR aux_bitset_vector;
+    std::bitset<BYTE_LENGTH> aux_bitset;
+
+    int index = 7;
+
+    for (size_t i = 0; i < table.size()/2; i += 2)
+    {
+        for (int j = BYTE_LENGTH-1; j >= 0; j -= 2)
+        {
+            if (table[i][j] == 0 and table[i][j-1] == 1) {
+                aux_bitset.set(index, 0);
+            }
+            else if (table[i][j] == 1 and table[i][j-1] == 0) {
+                aux_bitset.set(index);
+            }
+            index--;
+        }
+        std::cout << index << "\n";
+
+        for (int j = BYTE_LENGTH-1; j >= 0; j -= 2)
+        {
+            if (table[i+1][j] == 0 and table[i+1][j-1] == 1) {
+                aux_bitset.set(index, 0);
+            }
+            else if (table[i+1][j] == 1 and table[i+1][j-1] == 0) {
+                aux_bitset.set(index);
+            }
+            index--;
+        }
+        std::cout << index << "\n";
+        aux_bitset_vector.push_back(aux_bitset);
+        aux_bitset.reset();
+    }
+
+    
+    decoded_table_ = aux_bitset_vector;
+
+};
+// void ManchesterCodification::PrintDecodedTable(){};        
+// void ManchesterCodification::PrintEncodedTable(){
+//     for (size_t i = 0; i < encoded_table_.size()-1; i++)
+//     {
+//         std::cout << encoded_table_[i] << " ";
+//     }
+//     std::cout << encoded_table_[encoded_table_.size()-1] << "\n";
+
+// };
