@@ -1,6 +1,8 @@
 #include "Definitions.h"
 #include "Application.h"
 #include "TransmissionEnvironment.h"
+#include "PhysicalLayer.h"
+#include "ApplicationLayer.h"
 
 int main()
 {   
@@ -28,6 +30,15 @@ int main()
     reception_app.SetBitStream(transmitted_message);
     decoded_message = reception_app.Communicate();
 
+    ApplicationLayer lula;
+    ManchesterCodification lol;
+
+    std::getline (std::cin,message);
+    std::cout << "Bora testar solta o verbo: ";
+    std::getline (std::cin,message);
+
+    lula.SetBitStream(message);
+    lol.Encode(lula.GetBitStream());
 
 
 

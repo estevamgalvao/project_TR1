@@ -40,3 +40,75 @@ BITSET_VECTOR BinaryCodification::GetEncodedTable() {
 BITSET_VECTOR BinaryCodification::GetDecodedTable() {
     return decoded_table_;
 };
+
+
+
+ManchesterCodification::ManchesterCodification() {};
+
+void ManchesterCodification::Encode(BITSET_VECTOR table) {
+    BITSET_VECTOR aux_bitset_vector;
+    std::bitset<BYTE_LENGTH> aux_bitset;
+    for (size_t i = 0; i < table.size(); i++)
+    {
+        aux_bitset.reset();
+        std::cout << "BITSTREAM[" << i << "]: " << table[i] << "\n";
+        u1 offset = 0;
+        for (size_t j = BYTE_LENGTH; j > BYTE_LENGTH/2; j--)
+        {
+            int index;
+            index = (j-1)-offset;
+            std::cout << "BIT[" << j-1 << "]: " << table[i][j-1] << "\n";
+            if(table[i][j-1]) {
+                /* Se encontrei um 1, escrevo 10 */
+                aux_bitset.set(index);
+                aux_bitset.set(index-1, 0);
+            }
+            else {
+                /* Se encontrei um 0, escrevo 01 */
+                aux_bitset.set(index, 0);
+                aux_bitset.set(index-1);
+            }
+            offset++;
+        }
+
+        aux_bitset_vector.push_back(aux_bitset);
+        aux_bitset.reset();
+
+        for (size_t j = BYTE_LENGTH/2; j > 0; j--)
+        {
+            int index;
+            index = ((j-1)*2);
+            std::cout << "BIT[" << j-1 << "]: " << table[i][j-1] << "\n";
+            if(table[i][j-1]) {
+                /* Se encontrei um 1, escrevo 10 */
+                // std::cout << "ALOU\n";
+                aux_bitset.set(index + 1);
+                aux_bitset.set(index, 0);
+            }
+            else {
+                /* Se encontrei um 0, escrevo 01 */
+                aux_bitset.set(index, 0);
+                aux_bitset.set(index-1);
+            }
+            std::cout << "ALOU\n";
+            
+        }
+
+        aux_bitset_vector.push_back(aux_bitset);        
+    }
+    
+    encoded_table_ = aux_bitset_vector;
+
+    for (size_t i = 0; i < aux_bitset_vector.size(); i++)
+    {
+        std::cout << "AUXVECTOR[" << i << "]: " << aux_bitset_vector[i] << "\n";
+    }
+    
+    
+};
+
+void ManchesterCodification::Decode(BITSET_VECTOR table){};
+void ManchesterCodification::PrintDecodedTable(){};        
+void ManchesterCodification::PrintEncodedTable(){};
+BITSET_VECTOR ManchesterCodification::GetEncodedTable(){};
+BITSET_VECTOR ManchesterCodification::GetDecodedTable(){};

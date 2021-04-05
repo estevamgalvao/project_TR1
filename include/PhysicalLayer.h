@@ -30,9 +30,16 @@ class BinaryCodification : public PhysicalLayer {
 
 };
 
-// class ManchesterCodification : public PhysicalLayer {
-
-// };
+class ManchesterCodification : public PhysicalLayer {
+    public:
+        ManchesterCodification();
+        void Encode(BITSET_VECTOR table);
+        void Decode(BITSET_VECTOR table);
+        void PrintDecodedTable();        
+        void PrintEncodedTable();
+        BITSET_VECTOR GetEncodedTable();
+        BITSET_VECTOR GetDecodedTable();
+};
 
 // class BipolarCodification : public PhysicalLayer {
     
