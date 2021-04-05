@@ -81,19 +81,17 @@ void ManchesterCodification::Encode(BITSET_VECTOR table) {
             std::cout << "BIT[" << j-1 << "]: " << table[i][j-1] << "\n";
             if(table[i][j-1]) {
                 /* Se encontrei um 1, escrevo 10 */
-                // std::cout << "ALOU\n";
+                std::cout << "ALOU\n";
                 aux_bitset.set(index + 1);
                 aux_bitset.set(index, 0);
             }
             else {
                 /* Se encontrei um 0, escrevo 01 */
-                aux_bitset.set(index, 0);
-                aux_bitset.set(index-1);
+                aux_bitset.set(index + 1, 0);
+                aux_bitset.set(index);
             }
-            std::cout << "ALOU\n";
-            
+            // std::cout << aux_bitset << "\n";
         }
-
         aux_bitset_vector.push_back(aux_bitset);        
     }
     
