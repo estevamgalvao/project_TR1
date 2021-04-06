@@ -42,7 +42,8 @@ int main()
     lol.PrintEncodedTable();
     lol.Decode(lol.GetEncodedTable());
     lol.PrintDecodedTable();
-
+    lula.Translate(lol.GetDecodedTable());
+    std::cout << "Mensagem: " << lula.GetMessage() << "\n";
 
     return 0;
 };

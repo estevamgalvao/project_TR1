@@ -24,50 +24,17 @@ BITSET_VECTOR PhysicalLayer::GetDecodedTable() {
     return decoded_table_;
 };
 
-
-
-BinaryCodification::BinaryCodification() {
-
-}
+BinaryCodification::BinaryCodification() {}
 
 void BinaryCodification::Encode(BITSET_VECTOR table) {
     encoded_table_ = table;
     std::cout << "Binary encoding: \n";
-    PrintEncodedTable();
 }
 
 void BinaryCodification::Decode(BITSET_VECTOR table) {
     decoded_table_ = table;
     std::cout << "Binary decoding: \n";
-    PrintDecodedTable();
 }
-
-
-// void BinaryCodification::PrintEncodedTable() {
-//     for (size_t i = 0; i < encoded_table_.size()-1; i++)
-//     {
-//         std::cout << encoded_table_[i] << " ";
-//     }
-//     std::cout << encoded_table_[encoded_table_.size()-1] << "\n";
-// }
-
-// void BinaryCodification::PrintDecodedTable() {
-//     for (size_t i = 0; i < decoded_table_.size()-1; i++)
-//     {
-//         std::cout << decoded_table_[i] << " ";
-//     }
-//     std::cout << decoded_table_[decoded_table_.size()-1] << "\n";
-// }
-
-// BITSET_VECTOR BinaryCodification::GetEncodedTable() {
-//     return encoded_table_;
-// };
-
-// BITSET_VECTOR BinaryCodification::GetDecodedTable() {
-//     return decoded_table_;
-// };
-
-
 
 ManchesterCodification::ManchesterCodification() {};
 
@@ -77,13 +44,13 @@ void ManchesterCodification::Encode(BITSET_VECTOR table) {
     for (size_t i = 0; i < table.size(); i++)
     {
         aux_bitset.reset();
-        std::cout << "BITSTREAM[" << i << "]: " << table[i] << "\n";
+        // std::cout << "BITSTREAM[" << i << "]: " << table[i] << "\n";
         u1 offset = 0;
         for (size_t j = BYTE_LENGTH; j > BYTE_LENGTH/2; j--)
         {
             int index;
             index = (j-1)-offset;
-            std::cout << "BIT[" << j-1 << "]: " << table[i][j-1] << "\n";
+            // std::cout << "BIT[" << j-1 << "]: " << table[i][j-1] << "\n";
             if(table[i][j-1]) {
                 /* Se encontrei um 1, escrevo 10 */
                 aux_bitset.set(index);
@@ -104,10 +71,9 @@ void ManchesterCodification::Encode(BITSET_VECTOR table) {
         {
             int index;
             index = ((j-1)*2);
-            std::cout << "BIT[" << j-1 << "]: " << table[i][j-1] << "\n";
+            // std::cout << "BIT[" << j-1 << "]: " << table[i][j-1] << "\n";
             if(table[i][j-1]) {
                 /* Se encontrei um 1, escrevo 10 */
-                std::cout << "ALOU\n";
                 aux_bitset.set(index + 1);
                 aux_bitset.set(index, 0);
             }
@@ -122,23 +88,16 @@ void ManchesterCodification::Encode(BITSET_VECTOR table) {
     }
     
     encoded_table_ = aux_bitset_vector;
-
-    for (size_t i = 0; i < aux_bitset_vector.size(); i++)
-    {
-        std::cout << "AUXVECTOR[" << i << "]: " << aux_bitset_vector[i] << "\n";
-    }
-    
-    
 };
 
 void ManchesterCodification::Decode(BITSET_VECTOR table){
     BITSET_VECTOR aux_bitset_vector;
     std::bitset<BYTE_LENGTH> aux_bitset;
 
-    int index = 7;
-
-    for (size_t i = 0; i < table.size()/2; i += 2)
+    for (size_t i = 0; i < table.size(); i += 2)
     {
+        int index = 7;
+
         for (int j = BYTE_LENGTH-1; j >= 0; j -= 2)
         {
             if (table[i][j] == 0 and table[i][j-1] == 1) {
@@ -149,7 +108,6 @@ void ManchesterCodification::Decode(BITSET_VECTOR table){
             }
             index--;
         }
-        std::cout << index << "\n";
 
         for (int j = BYTE_LENGTH-1; j >= 0; j -= 2)
         {
@@ -161,21 +119,11 @@ void ManchesterCodification::Decode(BITSET_VECTOR table){
             }
             index--;
         }
-        std::cout << index << "\n";
+
         aux_bitset_vector.push_back(aux_bitset);
         aux_bitset.reset();
     }
-
     
     decoded_table_ = aux_bitset_vector;
 
 };
-// void ManchesterCodification::PrintDecodedTable(){};        
-// void ManchesterCodification::PrintEncodedTable(){
-//     for (size_t i = 0; i < encoded_table_.size()-1; i++)
-//     {
-//         std::cout << encoded_table_[i] << " ";
-//     }
-//     std::cout << encoded_table_[encoded_table_.size()-1] << "\n";
-
-// };

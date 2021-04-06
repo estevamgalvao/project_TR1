@@ -37,27 +37,33 @@ BITSET_VECTOR Application::Communicate() {
     switch (role_)
     {
     case 1: {
-        std::cout << "\n########### NEW LAYER ###########\n";
+        std::cout << "\n########### Application Layer ###########\n";
         std::cout << "Application started.\n";
         ApplicationLayer transmission_application_layer;
         
         transmission_application_layer.SetBitStream(this->GetMessage());
-        // transmission_application_layer.PrintBitStream();
 
         switch (codification_option_)
         {
         case 1: {
-            std::cout << "\n########### NEW LAYER ###########\n";
+            std::cout << "\n########### Physical Layer ###########\n";
             BinaryCodification transmission_physical_layer;
             transmission_physical_layer.Encode(
                 transmission_application_layer.GetBitStream()
                 );
+            transmission_physical_layer.PrintEncodedTable();
             return transmission_physical_layer.GetEncodedTable();
             // break;
         }
         case 2: {
-            // ManchesterCodification transmission_physical_layer;
-            break;
+            std::cout << "\n########### Physical Layer ###########\n";
+            ManchesterCodification transmission_physical_layer;
+            transmission_physical_layer.Encode(
+                transmission_application_layer.GetBitStream()
+                );
+            transmission_physical_layer.PrintEncodedTable();
+            return transmission_physical_layer.GetEncodedTable();
+            // break;
         }
         case 3: {
             //BipolarCodification transmission_physical_layer;
@@ -74,13 +80,14 @@ BITSET_VECTOR Application::Communicate() {
         switch (codification_option_)
         {
         case 1: {
-            std::cout << "\n########### NEW LAYER ###########\n";
+            std::cout << "\n########### Physical Layer ###########\n";
             BinaryCodification reception_physical_layer;
             reception_physical_layer.Decode(
                 this->GetBitStream()
                 );
+            reception_physical_layer.PrintDecodedTable();
             
-            std::cout << "\n########### NEW LAYER ###########\n";
+            std::cout << "\n########### Application Layer ###########\n";
             reception_application_layer.Translate(
                 reception_physical_layer.GetDecodedTable()
             );
@@ -91,8 +98,23 @@ BITSET_VECTOR Application::Communicate() {
             // break;
         }
         case 2: {
-            // ManchesterCodification transmission_physical_layer;
-            break;
+            std::cout << "\n########### Physical Layer ###########\n";
+            ManchesterCodification reception_physical_layer;
+            reception_physical_layer.Decode(
+                this->GetBitStream()
+                );
+            reception_physical_layer.PrintDecodedTable();
+            
+            
+            std::cout << "\n########### Application Layer ###########\n";
+            reception_application_layer.Translate(
+                reception_physical_layer.GetDecodedTable()
+            );
+
+            std::cout << "Translated received message: \n" 
+            << reception_application_layer.GetMessage() << "\n";
+            return reception_physical_layer.GetDecodedTable();
+            // break;
         }
         case 3: {
             //BipolarCodification transmission_physical_layer;
@@ -107,7 +129,5 @@ BITSET_VECTOR Application::Communicate() {
     default:
         break;
     }
-
-
 }
 
