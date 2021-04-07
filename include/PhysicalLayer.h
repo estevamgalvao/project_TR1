@@ -11,7 +11,7 @@ class PhysicalLayer {
     public:
         virtual ~PhysicalLayer() {};
         virtual void Encode(BITSET_VECTOR table) = 0;
-        virtual void Decode(BITSET_VECTOR table) = 0;
+        void Decode(BITSET_VECTOR table);
         void PrintDecodedTable();        
         void PrintEncodedTable();
         BITSET_VECTOR GetEncodedTable();
@@ -32,8 +32,14 @@ class ManchesterCodification : public PhysicalLayer {
         void Decode(BITSET_VECTOR table);
 };
 
-// class BipolarCodification : public PhysicalLayer {
-    
-// };
+class BipolarCodification : public PhysicalLayer {
+    protected:
+        std::vector<int> encoded_table_;    
+    public:
+        BipolarCodification();
+        void Encode(BITSET_VECTOR table);
+        void Decode(std::vector<int> table);
+
+};
 
 #endif //PHYSICALLAYER_H

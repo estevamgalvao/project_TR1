@@ -30,6 +30,9 @@ int main()
     reception_app.SetBitStream(transmitted_message);
     decoded_message = reception_app.Communicate();
 
+
+    BipolarCodification lel;
+
     ApplicationLayer lula;
     ManchesterCodification lol;
 
@@ -38,12 +41,14 @@ int main()
     std::getline (std::cin,message);
 
     lula.SetBitStream(message);
-    lol.Encode(lula.GetBitStream());
-    lol.PrintEncodedTable();
-    lol.Decode(lol.GetEncodedTable());
-    lol.PrintDecodedTable();
-    lula.Translate(lol.GetDecodedTable());
-    std::cout << "Mensagem: " << lula.GetMessage() << "\n";
+    lel.Encode(lula.GetBitStream());
+    
+    // lol.Encode(lula.GetBitStream());
+    // lol.PrintEncodedTable();
+    // lol.Decode(lol.GetEncodedTable());
+    // lol.PrintDecodedTable();
+    // lula.Translate(lol.GetDecodedTable());
+    // std::cout << "Mensagem: " << lula.GetMessage() << "\n";
 
     return 0;
 };

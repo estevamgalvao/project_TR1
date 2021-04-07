@@ -127,3 +127,74 @@ void ManchesterCodification::Decode(BITSET_VECTOR table){
     decoded_table_ = aux_bitset_vector;
 
 };
+
+BipolarCodification::BipolarCodification() {};
+
+void BipolarCodification::Encode(BITSET_VECTOR table) {
+    std::vector<int> aux_vector;
+    i1 last_state  = -1;
+
+    for (size_t i = 0; i < table.size(); i++)
+    {
+        for (int j = BYTE_LENGTH-1; j >= 0; j--)
+        {
+            if(table[i][j]) {
+                if(last_state == -1) {
+                    aux_vector.push_back(1);
+                    last_state = 1;
+                }
+                else {
+                    aux_vector.push_back(-1);
+                    last_state = -1;
+                }
+            }
+            else {
+                aux_vector.push_back(0);
+            }
+        }
+        std::cout << "Tamanho: " << aux_vector.size() << "\n";
+        
+    }
+    
+    u1 count = 0;    
+    
+    for (size_t i = 0; i < aux_vector.size(); i++)
+    {
+        std::cout << aux_vector[i];
+        count++;
+        if (count == 8) {
+            std::cout << " ";
+            count = 0;
+        }
+
+    }
+    std::cout << "\n";
+
+}
+
+void BipolarCodification::Decode(std::vector<int> table) {
+    BITSET_VECTOR aux_bitset_vector;
+    std::bitset<BYTE_LENGTH> aux_bitset;
+    int count = 7;
+
+    for (size_t i = 0; i < table.size(); i++)
+    {
+        if (count >= 0) {
+        if (table[i]) {
+            aux_bitset.set(count);
+        }
+        else {
+            aux_bitset.set(count, 0);
+        }
+        count--;
+        }
+
+        for (int j = BYTE_LENGTH; j >= 0; j--)
+        {
+            
+        }
+        
+    }
+    
+
+};
