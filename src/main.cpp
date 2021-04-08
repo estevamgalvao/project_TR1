@@ -45,7 +45,7 @@ int main()
     
     // lol.Encode(lula.GetBitStream());
     // lol.PrintEncodedTable();
-    // lol.Decode(lol.GetEncodedTable());
+    lel.Decode(lel.GetEncodedTable());
     // lol.PrintDecodedTable();
     // lula.Translate(lol.GetDecodedTable());
     // std::cout << "Mensagem: " << lula.GetMessage() << "\n";

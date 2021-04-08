@@ -39,6 +39,7 @@ class BipolarCodification : public PhysicalLayer {
         BipolarCodification();
         void Encode(BITSET_VECTOR table);
         void Decode(std::vector<int> table);
+        std::vector<int> GetEncodedTable();
 
 };
 

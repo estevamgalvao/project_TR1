@@ -130,6 +130,11 @@ void ManchesterCodification::Decode(BITSET_VECTOR table){
 
 BipolarCodification::BipolarCodification() {};
 
+std::vector<int> BipolarCodification::GetEncodedTable() {
+    return encoded_table_;
+};
+
+
 void BipolarCodification::Encode(BITSET_VECTOR table) {
     std::vector<int> aux_vector;
     i1 last_state  = -1;
@@ -155,6 +160,8 @@ void BipolarCodification::Encode(BITSET_VECTOR table) {
         std::cout << "Tamanho: " << aux_vector.size() << "\n";
         
     }
+
+    encoded_table_ = aux_vector;
     
     u1 count = 0;    
     
@@ -169,32 +176,34 @@ void BipolarCodification::Encode(BITSET_VECTOR table) {
 
     }
     std::cout << "\n";
-
 }
 
 void BipolarCodification::Decode(std::vector<int> table) {
     BITSET_VECTOR aux_bitset_vector;
     std::bitset<BYTE_LENGTH> aux_bitset;
     int count = 7;
-
+    
     for (size_t i = 0; i < table.size(); i++)
     {
         if (count >= 0) {
-        if (table[i]) {
-            aux_bitset.set(count);
+            if (table[i]) {
+                aux_bitset.set(count);
+            }
+            else {
+                aux_bitset.set(count, 0);
+            }
+            count--;
+            if (count < 0) {
+                count = 7;
+                aux_bitset_vector.push_back(aux_bitset);
+            }
         }
-        else {
-            aux_bitset.set(count, 0);
-        }
-        count--;
-        }
-
-        for (int j = BYTE_LENGTH; j >= 0; j--)
-        {
-            
-        }
-        
+    }
+    std::cout << aux_bitset_vector.size();
+    for (size_t i = 0; i < aux_bitset_vector.size(); i++)
+    {
+        std::cout << "\nBITSTREAM[" << i << "]: " << aux_bitset_vector[i];
     }
     
-
+    decoded_table_ = aux_bitset_vector;
 };
