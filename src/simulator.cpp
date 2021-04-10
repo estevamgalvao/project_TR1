@@ -29,9 +29,10 @@ int main()
     Application transmission_app(1, codification_option);
     Application reception_app(2, codification_option);
 
+    std::cout << "\nAPPLICATION STARTED\n";
     /* Application workflow */
     /* App Transmissor => Transmission Environment => App Receptor */
-    
+
     /* App Transmissor: Application Layer (ASCII to Binary)
                         => 
                         Physhical Layer (Encode) */

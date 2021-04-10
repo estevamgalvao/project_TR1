@@ -28,12 +28,10 @@ BinaryCodification::BinaryCodification() {}
 
 void BinaryCodification::Encode(BITSET_VECTOR table) {
     encoded_table_ = table;
-    std::cout << "Binary encoding: \n";
 }
 
 void BinaryCodification::Decode(BITSET_VECTOR table) {
     decoded_table_ = table;
-    std::cout << "Binary decoding: \n";
 }
 
 ManchesterCodification::ManchesterCodification() {};
@@ -45,7 +43,7 @@ void ManchesterCodification::Encode(BITSET_VECTOR table) {
     {
         aux_bitset.reset();
         // std::cout << "BITSTREAM[" << i << "]: " << table[i] << "\n";
-        u1 offset = 0;
+        int offset = 0;
         for (size_t j = BYTE_LENGTH; j > BYTE_LENGTH/2; j--)
         {
             int index;

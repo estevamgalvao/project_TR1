@@ -45,6 +45,8 @@ BITSET_VECTOR Application::Communicate() {
     case 1: {
         ApplicationLayer transmission_application_layer;
         
+        std::cout << "\n\nOriginal received message: " << this->GetMessage()
+        << "\n\n";
         transmission_application_layer.SetBitStream(this->GetMessage());
 
         /* Switch that represent the codification start */
@@ -63,26 +65,33 @@ BITSET_VECTOR Application::Communicate() {
                 (
                 transmission_application_layer.GetBitStream()
                 );
+            std::cout << "[Binary] Coded: ";
             transmission_physical_layer.PrintEncodedTable();
             
             return transmission_physical_layer.GetEncodedTable();
         }
         case 2: {
-
             ManchesterCodification transmission_physical_layer;
-            transmission_physical_layer.Encode(
+            
+            transmission_physical_layer.Encode
+                (
                 transmission_application_layer.GetBitStream()
                 );
+            std::cout << "[Manchester] Coded: ";
             transmission_physical_layer.PrintEncodedTable();
+            
             return transmission_physical_layer.GetEncodedTable();
         }
         case 3: {
-            std::cout << "\n########### Physical Layer ###########\n";
             BipolarCodification transmission_physical_layer;
-            transmission_physical_layer.Encode(
+            
+            transmission_physical_layer.Encode
+                (
                 transmission_application_layer.GetBitStream()
                 );
+            std::cout << "[Bipolar] Coded: ";
             transmission_physical_layer.PrintEncodedTable();
+            
             return transmission_physical_layer.GetEncodedTable();
         }
         default:
@@ -104,56 +113,65 @@ BITSET_VECTOR Application::Communicate() {
         switch (codification_option_)
         {
         case 1: {
-            std::cout << "\n########### Physical Layer ###########\n";
             BinaryCodification reception_physical_layer;
-            reception_physical_layer.Decode(
+
+            reception_physical_layer.Decode
+                (
                 this->GetBitStream()
                 );
+            std::cout << "[Binary] Decoded: ";
             reception_physical_layer.PrintDecodedTable();
             
-            std::cout << "\n########### Application Layer ###########\n";
-            reception_application_layer.Translate(
+            reception_application_layer.Translate
+                (
                 reception_physical_layer.GetDecodedTable()
-            );
+                );
 
-            std::cout << "Translated received message: \n" 
+            std::cout << "\nTranslated received message: " 
             << reception_application_layer.GetMessage() << "\n";
+
             return reception_physical_layer.GetDecodedTable();
         }
         case 2: {
-            std::cout << "\n########### Physical Layer ###########\n";
             ManchesterCodification reception_physical_layer;
-            reception_physical_layer.Decode(
+            
+            reception_physical_layer.Decode
+                (
                 this->GetBitStream()
                 );
+            std::cout << "[Manchester] Decoded: ";
             reception_physical_layer.PrintDecodedTable();
             
             
-            std::cout << "\n########### Application Layer ###########\n";
-            reception_application_layer.Translate(
+            reception_application_layer.Translate
+                (
                 reception_physical_layer.GetDecodedTable()
-            );
+                );
 
-            std::cout << "Translated received message: \n" 
+            std::cout << "\nTranslated received message: " 
             << reception_application_layer.GetMessage() << "\n";
+
             return reception_physical_layer.GetDecodedTable();
         }
         case 3: {
-            std::cout << "\n########### Physical Layer ###########\n";
             BipolarCodification reception_physical_layer;
-            reception_physical_layer.Decode(
+
+            reception_physical_layer.Decode
+                (
                 this->GetBitStream()
                 );
+            std::cout << "[Bipolar] Decoded: ";
             reception_physical_layer.PrintDecodedTable();
             
             
-            std::cout << "\n########### Application Layer ###########\n";
-            reception_application_layer.Translate(
+            reception_application_layer.Translate
+                (
                 reception_physical_layer.GetDecodedTable()
-            );
+                );
 
-            std::cout << "Translated received message: \n" 
+            std::cout << "\nTranslated received message: " 
             << reception_application_layer.GetMessage() << "\n";
+
             return reception_physical_layer.GetDecodedTable();
         }
         default:
