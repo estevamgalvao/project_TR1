@@ -13,15 +13,7 @@
 
 #define BYTE_LENGTH 8
 
-typedef std::vector<std::bitset<BYTE_LENGTH>> BITSET_VECTOR;
-
-typedef uint8_t 	u1;	/*!< Tipo de dado (1 byte)  */
-typedef uint16_t	u2;	/*!< Tipo de dado (2 bytes) */
-typedef uint32_t 	u4;	/*!< Tipo de dado (4 bytes) */
-typedef uint64_t 	u8;	/*!< Tipo de dado (8 bytes) */
-typedef int8_t      i1; /*!< Tipo de dado (1 byte com sinal)  */
-
-
-
+/*!< Tipo de dado vetor de bitset (BitStream)  */
+typedef std::vector<std::bitset<BYTE_LENGTH>> BITSET_VECTOR; 
 
 #endif
