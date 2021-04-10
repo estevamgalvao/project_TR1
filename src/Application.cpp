@@ -123,15 +123,28 @@ BITSET_VECTOR Application::Communicate() {
             // break;
         }
         case 3: {
-            //BipolarCodification transmission_physical_layer;
-            break;
+            std::cout << "\n########### Physical Layer ###########\n";
+            BipolarCodification reception_physical_layer;
+            reception_physical_layer.Decode(
+                this->GetBitStream()
+                );
+            reception_physical_layer.PrintDecodedTable();
+            
+            
+            std::cout << "\n########### Application Layer ###########\n";
+            reception_application_layer.Translate(
+                reception_physical_layer.GetDecodedTable()
+            );
+
+            std::cout << "Translated received message: \n" 
+            << reception_application_layer.GetMessage() << "\n";
+            return reception_physical_layer.GetDecodedTable();
         }
         default:
             break;
         }
 
     }
-        
     default:
         break;
     }

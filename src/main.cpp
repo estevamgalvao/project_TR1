@@ -31,25 +31,25 @@ int main()
     decoded_message = reception_app.Communicate();
 
 
-    BipolarCodification lel;
+    // BipolarCodification lel;
 
-    ApplicationLayer lula;
-    ManchesterCodification lol;
+    // ApplicationLayer lula;
+    // ManchesterCodification lol;
 
-    std::getline (std::cin,message);
-    std::cout << "Bora testar solta o verbo: ";
-    std::getline (std::cin,message);
+    // std::getline (std::cin,message);
+    // std::cout << "Bora testar solta o verbo: ";
+    // std::getline (std::cin,message);
 
-    lula.SetBitStream(message);
-    lel.Encode(lula.GetBitStream());
+    // lula.SetBitStream(message);
+    // lel.Encode(lula.GetBitStream());
     
 
-    // lol.Encode(lula.GetBitStream());
-    // lol.PrintEncodedTable();
-    lel.Decode(lel.GetEncodedTable());
-    lel.PrintDecodedTable();
-    lula.Translate(lel.GetDecodedTable());
-    std::cout << "Mensagem: " << lula.GetMessage() << "\n";
+    // // lol.Encode(lula.GetBitStream());
+    // // lol.PrintEncodedTable();
+    // lel.Decode(lel.GetEncodedTable());
+    // lel.PrintDecodedTable();
+    // lula.Translate(lel.GetDecodedTable());
+    // std::cout << "Mensagem: " << lula.GetMessage() << "\n";
 
     return 0;
 };

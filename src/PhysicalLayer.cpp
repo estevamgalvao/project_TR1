@@ -194,15 +194,6 @@ void BipolarCodification::Encode(BITSET_VECTOR table) {
     }
 
     encoded_table_ = aux_bitset_vector;
-    
-    u1 count = 0;    
-    std::cout << "ARROZZZ\n" ;
-    
-    for (size_t i = 0; i < aux_bitset_vector.size(); i++)
-    {
-        std::cout << aux_bitset_vector[i] << " ";
-    }
-    std::cout << "\n";
 }
 
 void BipolarCodification::Decode(BITSET_VECTOR table) {
