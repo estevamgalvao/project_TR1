@@ -130,35 +130,73 @@ void ManchesterCodification::Decode(BITSET_VECTOR table){
 
 BipolarCodification::BipolarCodification() {};
 
-std::vector<int> BipolarCodification::GetEncodedTable() {
+std::vector<int> BipolarCodification::GetEncodedBipolarTable() {
     return encoded_table_;
 };
 
 
 void BipolarCodification::Encode(BITSET_VECTOR table) {
     std::vector<int> aux_vector;
+    BITSET_VECTOR aux_bitset_vector;
+    std::bitset<BYTE_LENGTH> aux_bitset;
+    
+    
     i1 last_state  = -1;
 
     for (size_t i = 0; i < table.size(); i++)
     {
-        for (int j = BYTE_LENGTH-1; j >= 0; j--)
+        u1 offset = 0;
+        for (int j = BYTE_LENGTH-1; j >= BYTE_LENGTH/2; j--)
         {
+            int index;
+            index = j-offset;
             if(table[i][j]) {
                 if(last_state == -1) {
-                    aux_vector.push_back(1);
+                    aux_bitset.set(index, 0);
+                    aux_bitset.set(index-1);
                     last_state = 1;
                 }
                 else {
-                    aux_vector.push_back(-1);
+                    aux_bitset.set(index);
+                    aux_bitset.set(index-1);
                     last_state = -1;
                 }
             }
             else {
-                aux_vector.push_back(0);
+                aux_bitset.set(index, 0);
+                aux_bitset.set(index-1, 0);
+            }
+            offset++;
+        }
+
+        aux_bitset_vector.push_back(aux_bitset);
+        aux_bitset.reset();
+        
+         for (int j = (BYTE_LENGTH/2)-1; j >= 0; j--)
+        {
+            int index;
+            index = (j*2)+1;
+            if(table[i][j]) {
+                if(last_state == -1) {
+                    aux_bitset.set(index, 0);
+                    aux_bitset.set(index-1);
+                    last_state = 1;
+                }
+                else {
+                    aux_bitset.set(index);
+                    aux_bitset.set(index-1);
+                    last_state = -1;
+                }
+            }
+            else {
+                aux_bitset.set(index, 0);
+                aux_bitset.set(index-1, 0);
             }
         }
-        std::cout << "Tamanho: " << aux_vector.size() << "\n";
         
+        aux_bitset_vector.push_back(aux_bitset);
+        aux_bitset.reset();
+
     }
 
     encoded_table_ = aux_vector;

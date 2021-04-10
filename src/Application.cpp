@@ -66,7 +66,13 @@ BITSET_VECTOR Application::Communicate() {
             // break;
         }
         case 3: {
-            //BipolarCodification transmission_physical_layer;
+            std::cout << "\n########### Physical Layer ###########\n";
+            BipolarCodification transmission_physical_layer;
+            transmission_physical_layer.Encode(
+                transmission_application_layer.GetBitStream()
+                );
+            transmission_physical_layer.PrintEncodedTable();
+            return transmission_physical_layer.GetEncodedBipolarTable();
             break;
         }
         default:
