@@ -43,12 +43,13 @@ int main()
     lula.SetBitStream(message);
     lel.Encode(lula.GetBitStream());
     
+
     // lol.Encode(lula.GetBitStream());
     // lol.PrintEncodedTable();
-    lel.Decode(lel.GetEncodedBipolarTable());
+    lel.Decode(lel.GetEncodedTable());
     lel.PrintDecodedTable();
-    // lula.Translate(lol.GetDecodedTable());
-    // std::cout << "Mensagem: " << lula.GetMessage() << "\n";
+    lula.Translate(lel.GetDecodedTable());
+    std::cout << "Mensagem: " << lula.GetMessage() << "\n";
 
     return 0;
 };

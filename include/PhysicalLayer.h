@@ -33,14 +33,10 @@ class ManchesterCodification : public PhysicalLayer {
 };
 
 class BipolarCodification : public PhysicalLayer {
-    protected:
-        std::vector<int> encoded_table_;
-
     public:
         BipolarCodification();
         void Encode(BITSET_VECTOR table);
-        void BipolarDecode(std::vector<int> table);
-        std::vector<int> GetEncodedBipolarTable();
+        void Decode(BITSET_VECTOR table);
 
 };
 

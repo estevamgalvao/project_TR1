@@ -72,7 +72,7 @@ BITSET_VECTOR Application::Communicate() {
                 transmission_application_layer.GetBitStream()
                 );
             transmission_physical_layer.PrintEncodedTable();
-            return transmission_physical_layer.GetEncodedBipolarTable();
+            return transmission_physical_layer.GetEncodedTable();
             break;
         }
         default:
