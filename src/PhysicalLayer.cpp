@@ -135,11 +135,11 @@ void BipolarCodification::Encode(BITSET_VECTOR table) {
     std::bitset<BYTE_LENGTH> aux_bitset;
     
     
-    i1 last_state  = -1;
+    int last_state  = -1;
 
     for (size_t i = 0; i < table.size(); i++)
     {
-        u1 offset = 0;
+        int offset = 0;
         for (int j = BYTE_LENGTH-1; j >= BYTE_LENGTH/2; j--)
         {
             int index;

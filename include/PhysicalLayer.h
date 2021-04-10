@@ -2,7 +2,18 @@
 #define PHYSICALLAYER_H
 
 #include "Definitions.h"
+/* PhysicalLayer class is divided in 3 sub-classes,
+- BinaryCodification
+- ManchesterCodification
+- BipolarCodification */
 
+/* The physical layer has 2 atributtes:
+- decoded_table_: stores the decoded bitstream without any codification on it.
+- encoded_table_: stores the encoded bitstream depending of which codification 
+was used.
+
+And implements 4 commom methods and 2 virtual methods, Encode and Decode.
+Every subclass implements your own decoding and encoding method. */
 class PhysicalLayer {
     protected:
         BITSET_VECTOR decoded_table_;

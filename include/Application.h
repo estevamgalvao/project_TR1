@@ -3,6 +3,12 @@
 
 #include "Definitions.h"
 
+/* Application class is the one which start the entire proccess trying to commu-
+nicate, initializating all layers of a transmitter or a receptor */
+/* It has two unique atributtes called role_ and codification_option_, both are
+responsible for indicating if the app is a transmitter or a receptor and which 
+codification is going to be used */ 
+
 class Application {
     private:
         int role_;

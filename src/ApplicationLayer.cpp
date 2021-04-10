@@ -1,9 +1,7 @@
 #include "ApplicationLayer.h"
 #include "PhysicalLayer.h"
 
-ApplicationLayer::ApplicationLayer() {
-    // std::cout << "Application layer initiated.\n";
-};
+ApplicationLayer::ApplicationLayer() {};
 
 void ApplicationLayer::SetBitStream(std::string message) {
     for (size_t i = 0; i < message.size(); i++)

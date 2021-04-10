@@ -3,6 +3,9 @@
 
 #include "Definitions.h"
 
+/* TransmissionEnvironment is the one which simulates the environment where the
+data is going through */
+
 class TransmissionEnvironment {
     private:
         std::vector<std::bitset<BYTE_LENGTH>> origin_bits_;
