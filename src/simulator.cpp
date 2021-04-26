@@ -3,6 +3,7 @@
 #include "TransmissionEnvironment.h"
 #include "PhysicalLayer.h"
 #include "ApplicationLayer.h"
+#include "LinkLayer.h"
 
 int main()
 {   
@@ -48,6 +49,25 @@ int main()
 
     reception_app.SetBitStream(transmitted_message);
     decoded_message = reception_app.Communicate();
+
+
+    LinkLayer alou;
+    ApplicationLayer naruto;
+
+    naruto.SetBitStream("Lulaa");
+
+    alou.CharacterCount(naruto.GetBitStream());
+
+    BITSET_VECTOR bit_stream_ = alou.GetHeaderTable();
+;
+
+    std::cout << "\n\n\nBeleza seu bandido: \t";
+    for (size_t i = 0; i < bit_stream_.size()-1; i++)
+    {
+        std::cout << bit_stream_[i] << " ";
+    }
+    std::cout << bit_stream_[bit_stream_.size()-1] << "\n";
+    
 
     return 0;
 };

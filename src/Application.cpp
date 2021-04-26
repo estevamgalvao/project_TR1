@@ -50,7 +50,7 @@ BITSET_VECTOR Application::Communicate() {
         transmission_application_layer.SetBitStream(this->GetMessage());
 
         /* Switch that represent the codification start */
-        /* The codification that is going to be used is based on the
+        /* The encodification that is going to be used is based on the
         codification_option_ atributte
         [1] Binary
         [2] Manchester

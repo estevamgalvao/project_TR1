@@ -13,6 +13,7 @@
 
 #define BYTE_LENGTH 8
 
+
 /*!< Tipo de dado vetor de bitset (BitStream)  */
 typedef std::vector<std::bitset<BYTE_LENGTH>> BITSET_VECTOR; 
 
