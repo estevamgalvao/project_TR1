@@ -12,7 +12,16 @@
 #include <bitset>
 
 #define BYTE_LENGTH 8
+#define BYTE_FLAG std::bitset<BYTE_LENGTH>{"10000000"}
+// #define BYTE_ESC std::bitset<BYTE_LENGTH>{"00100011"}
+#define BYTE_ESC std::bitset<BYTE_LENGTH>{"01100001"}
 
+
+#define BIT_FLAG (uint8_t) 0b01111110
+#define BIT_8 (uint8_t) 0b10000000
+#define BIT_1 (uint8_t) 0x01
+#define CRC_POLYNOMIAL 0xEDB88320
+#define CRC_SIZE 32
 
 /*!< Tipo de dado vetor de bitset (BitStream)  */
 typedef std::vector<std::bitset<BYTE_LENGTH>> BITSET_VECTOR; 

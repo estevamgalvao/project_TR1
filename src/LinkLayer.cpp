@@ -19,14 +19,33 @@ BITSET_VECTOR LinkLayer::GetNoHeaderTable() {
 }
 
 void LinkLayer::CharacterCount(BITSET_VECTOR table) {
-    // int table_size;
     std::bitset<BYTE_LENGTH> table_size;
     table_size = table.size();
 
     table.insert(table.begin(), table_size);
 
     header_table_ = table;
+}
+
+void LinkLayer::ByteInsertion(BITSET_VECTOR table) {
+
+    for (size_t i = 0; i < table.size(); i++)
+    {
+        if (table[i] == BYTE_FLAG or table[i] == BYTE_ESC) {
+            table.insert(table.begin()+i, BYTE_ESC);
+            i++;
+        }
+    }
+
+    /* Inserting FLAG bytes at the table's end and begin */
+    table.insert(table.begin(), BYTE_FLAG);
+    table.insert(table.end(), BYTE_FLAG);
+
+    header_table_ = table;
+
 };
+
+
 
 
 

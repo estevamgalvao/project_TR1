@@ -54,14 +54,15 @@ int main()
     LinkLayer alou;
     ApplicationLayer naruto;
 
-    naruto.SetBitStream("Lulaa");
+    naruto.SetBitStream("Lulaaa");
 
-    alou.CharacterCount(naruto.GetBitStream());
+    alou.ByteInsertion(naruto.GetBitStream());
 
     BITSET_VECTOR bit_stream_ = alou.GetHeaderTable();
 ;
 
-    std::cout << "\n\n\nBeleza seu bandido: \t";
+    std::cout << "\n\n\nBeleza seu bandido: \t"; //<< std::bitset<BYTE_LENGTH>{"10000000"};
+    // std::cout << "\\\\\\";
     for (size_t i = 0; i < bit_stream_.size()-1; i++)
     {
         std::cout << bit_stream_[i] << " ";
