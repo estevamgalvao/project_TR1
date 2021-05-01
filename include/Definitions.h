@@ -12,9 +12,9 @@
 #include <bitset>
 
 #define BYTE_LENGTH 8
-#define BYTE_FLAG std::bitset<BYTE_LENGTH>{"10000000"}
-// #define BYTE_ESC std::bitset<BYTE_LENGTH>{"00100011"}
-#define BYTE_ESC std::bitset<BYTE_LENGTH>{"01100001"}
+#define BYTE_FLAG std::bitset<BYTE_LENGTH>{"11001000"} //ASCII 200
+#define BYTE_ESC std::bitset<BYTE_LENGTH>{"10110000"} //ASCII 176
+// #define BYTE_ESC std::bitset<BYTE_LENGTH>{"01100001"}
 
 
 #define BIT_FLAG (uint8_t) 0b01111110
