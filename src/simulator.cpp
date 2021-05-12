@@ -59,7 +59,7 @@ int main()
     alou.ByteInsertion(naruto.GetBitStream());
 
     BITSET_VECTOR bit_stream_ = alou.GetHeaderTable();
-;
+
 
     std::cout << "\n\n\nBeleza seu bandido: \t"; //<< std::bitset<BYTE_LENGTH>{"10000000"};
     // std::cout << "\\\\\\";

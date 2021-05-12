@@ -13,6 +13,9 @@ class Application {
     private:
         int role_;
         int codification_option_;
+        int framing_option_;
+        int error_option_;
+        int error_chance_;
         std::string message_;
         BITSET_VECTOR bit_stream_;
 

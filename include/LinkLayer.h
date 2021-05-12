@@ -13,6 +13,8 @@ class LinkLayer {
         void CharacterCount(BITSET_VECTOR table);
         void ByteInsertion(BITSET_VECTOR table);
         
+
+
         void SetHeaderTable(BITSET_VECTOR table);
         BITSET_VECTOR GetHeaderTable();
         void SetNoHeaderTable(BITSET_VECTOR table);
