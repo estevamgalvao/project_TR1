@@ -48,44 +48,12 @@ int main()
 
 
     transmission_app.SetMessage(message);
-    // encoded_message = transmission_app.Communicate();
     encoded_message = transmission_app.Transmit();
 
-    transmitted_message = environment.Transmit(encoded_message);
+    transmitted_message = environment.SetPath(encoded_message);
 
     reception_app.SetBitStream(transmitted_message);
-    // decoded_message = reception_app.Communicate();
     reception_app.Receive();
-
-
-    // LinkLayer alou;
-    // ApplicationLayer naruto;
-
-    // naruto.SetBitStream("lol");
-
-    // alou.ByteInsertion(naruto.GetBitStream());
-
-    // BITSET_VECTOR bit_stream_ = alou.GetHeaderTable();
-
-
-    // std::cout << "\n\n\nCom LinkLayer: \t"; //<< std::bitset<BYTE_LENGTH>{"10000000"};
-    // // std::cout << "\\\\\\";
-    // for (size_t i = 0; i < bit_stream_.size()-1; i++)
-    // {
-    //     std::cout << bit_stream_[i] << " ";
-    // }
-    // std::cout << bit_stream_[bit_stream_.size()-1] << "\n";
-    
-    // alou.DecodeByteInsertion();
-    // bit_stream_ = alou.GetNoHeaderTable();
-
-    // std::cout << "\n\n\nSem LinkLayer: \t";
-
-    // for (size_t i = 0; i < bit_stream_.size()-1; i++)
-    // {
-    //     std::cout << bit_stream_[i] << " ";
-    // }
-    // std::cout << bit_stream_[bit_stream_.size()-1] << "\n";
 
     return 0;
 };

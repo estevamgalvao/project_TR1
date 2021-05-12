@@ -188,7 +188,17 @@ BITSET_VECTOR Application::Communicate() {
 
 
 BITSET_VECTOR Application::Transmit() {
-
+    /* 
+    Every switch case in that function [Transmit] is coded following this: 
+    
+    initiate case layer
+    
+    encode/frame/error function
+    print result
+    update aux_message
+    
+    break
+    */
     BITSET_VECTOR aux_message;
     ApplicationLayer transmission_application_layer;
         
@@ -197,6 +207,12 @@ BITSET_VECTOR Application::Transmit() {
 
         transmission_application_layer.SetBitStream(this->GetMessage());
         aux_message = transmission_application_layer.GetBitStream();
+
+    /* Switch that represent the framing start */
+    /* The framing that is going to be used is based on the
+    framing_option_ atributte
+    [1] Character Count
+    [2] Byte Insertion */
 
     switch (this->framing_option_)
     {
@@ -227,6 +243,12 @@ BITSET_VECTOR Application::Transmit() {
         break;
     }
 
+    /* Switch that represent the codification start */
+        /* The encodification that is going to be used is based on the
+        codification_option_ atributte
+        [1] Binary
+        [2] Manchester
+        [3] Bipolar */
 
     switch (this->codification_option_) {
         case 1:
