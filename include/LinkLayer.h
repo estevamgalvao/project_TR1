@@ -11,9 +11,13 @@ class LinkLayer {
     public:
         LinkLayer();
         void CharacterCount(BITSET_VECTOR table);
+        void DecodeCharacterCount();
         void ByteInsertion(BITSET_VECTOR table);
-        
+        void DecodeByteInsertion();
+        //TODO
+        /* 
 
+        */
 
         void SetHeaderTable(BITSET_VECTOR table);
         BITSET_VECTOR GetHeaderTable();

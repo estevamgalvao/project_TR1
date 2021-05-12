@@ -183,3 +183,4 @@ BITSET_VECTOR Application::Communicate() {
     }
 }
 
+BITSET_VECTOR ApplicationLayer

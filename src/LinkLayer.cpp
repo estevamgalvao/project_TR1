@@ -27,6 +27,12 @@ void LinkLayer::CharacterCount(BITSET_VECTOR table) {
     header_table_ = table;
 }
 
+void LinkLayer::DecodeCharacterCount() {
+    BITSET_VECTOR aux_table = header_table_;
+    aux_table.erase(aux_table.begin());
+    noheader_table_ = aux_table;
+}
+
 void LinkLayer::ByteInsertion(BITSET_VECTOR table) {
 
     for (size_t i = 0; i < table.size(); i++)
@@ -45,7 +51,25 @@ void LinkLayer::ByteInsertion(BITSET_VECTOR table) {
 
 };
 
+void LinkLayer::DecodeByteInsertion() {
+    BITSET_VECTOR aux_table = header_table_;
 
+    /* Inserting FLAG bytes at the table's end and begin */
+    aux_table.erase(aux_table.begin());
+    aux_table.erase(aux_table.end());
+
+    for (size_t i = 0; i < aux_table.size()-1; i++)
+    {
+        if (aux_table[i] == BYTE_ESC) {
+            if (aux_table[i+1] == BYTE_FLAG or aux_table[i+1] == BYTE_ESC) {
+                aux_table.erase(aux_table.begin()+i);
+            }
+        }
+    }
+
+    noheader_table_ = aux_table;
+
+}
 
 
 
