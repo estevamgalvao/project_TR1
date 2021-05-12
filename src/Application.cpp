@@ -183,4 +183,76 @@ BITSET_VECTOR Application::Communicate() {
     }
 }
 
-BITSET_VECTOR ApplicationLayer
+
+BITSET_VECTOR Application::Transmit() {
+
+    BITSET_VECTOR aux_message;
+    ApplicationLayer transmission_application_layer;
+        
+        std::cout << "\n\nOriginal received message: " << this->GetMessage()
+        << "\n\n";
+
+        transmission_application_layer.SetBitStream(this->GetMessage());
+        aux_message = transmission_application_layer.GetBitStream();
+
+    // switch (this->framing_option_)
+    // {
+    // case 1:
+    // {
+    // }
+    //     break;
+    
+    // default:
+    //     break;
+    // }
+
+
+    switch (this->codification_option_) {
+        case 1:
+        {
+            BinaryCodification transmission_physical_layer;
+
+            transmission_physical_layer.Encode(aux_message);
+            std::cout << "[Binary] Coded: ";
+            transmission_physical_layer.PrintEncodedTable();
+            
+            aux_message = transmission_physical_layer.GetEncodedTable();
+            break;
+        }
+        
+        case 2: 
+        {
+            ManchesterCodification transmission_physical_layer;
+            
+            transmission_physical_layer.Encode(aux_message);
+            std::cout << "[Manchester] Coded: ";
+            transmission_physical_layer.PrintEncodedTable();
+            
+            aux_message = transmission_physical_layer.GetEncodedTable();
+            break;
+        }
+
+        case 3: 
+        {
+            BipolarCodification transmission_physical_layer;
+            
+            transmission_physical_layer.Encode(aux_message);
+            std::cout << "[Bipolar] Coded: ";
+            transmission_physical_layer.PrintEncodedTable();
+            
+            aux_message = transmission_physical_layer.GetEncodedTable();
+            break;
+        }
+
+        default:
+            std::cout << "aí cê ramelou em menó";
+    }
+
+    return aux_message;
+
+
+}
+
+BITSET_VECTOR Application::Receive() {
+    
+}

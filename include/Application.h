@@ -22,6 +22,8 @@ class Application {
     public:
         Application(int role_option, int codification_option);
         BITSET_VECTOR Communicate();
+        BITSET_VECTOR Transmit();
+        BITSET_VECTOR Receive();
         void SetCodeOption(int option);
         int GetCodeOption();
         void SetMessage(std::string message);
