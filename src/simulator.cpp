@@ -12,8 +12,8 @@ int main()
     BITSET_VECTOR encoded_message, transmitted_message, decoded_message;
     std::string message;
 
-    /* Getting info from the user - desired message and which codification 
-    is going to be used */
+    /* Getting info from the user - desired message and which codification, 
+    framing and error are going to be used */
 
     std::cout << "Enter the desired message: ";
     std::getline (std::cin,message);
@@ -28,21 +28,32 @@ int main()
     << "Select the desired framing option from the above ones: ";
     std::cin >> framing_option;
 
+    int error_option;
+    std::cout << "[1] Parity Bit\n[2] CRC\n[3] Hamming\n"
+    << "Select the desired error detection/correction option from the above ones: ";
+    std::cin >> error_option;
+
+
     /* Applications objects initialized - transmissor and receptor */
     /* Transmission Enviroment that links the two Applications initialized */
 
     TransmissionEnvironment environment;    
-    Application transmission_app(1, codification_option, framing_option);
-    Application reception_app(2, codification_option, framing_option);
+    Application transmission_app(codification_option, framing_option, error_option);
+    Application reception_app(codification_option, framing_option, error_option);
 
     std::cout << "\nAPPLICATION STARTED\n";
     /* Application workflow */
-    /* App Transmissor => Transmission Environment => App Receptor */
+    /* Transmissor App => Transmission Environment => App Receptor */
 
-    /* App Transmissor: Application Layer (ASCII to Binary)
+    /* Transmissor App: Application Layer (ASCII to Binary)
                         => 
+                        Link Layer (Framing)
+                        =>
                         Physhical Layer (Encode) */
-    /* App Receptor:    Physical Layer (Decode)
+
+    /* Receptor App:    Physical Layer (Decode)
+                        =>
+                        Link Layer (Unframing)
                         => 
                         Application Layer (Binary to ASCII) */
 

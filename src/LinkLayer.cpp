@@ -34,6 +34,39 @@ BITSET_VECTOR LinkLayer::GetNoHeaderTable() {
     return noheader_table_;
 }
 
+void LinkLayer::PrintErrorTable() {
+    for (size_t i = 0; i < error_table_.size()-1; i++)
+    {
+        std::cout << error_table_[i] << " ";
+    }
+    std::cout << error_table_[error_table_.size()-1] << "\n";
+}
+
+void LinkLayer::PrintNoErrorTable() {
+    for (size_t i = 0; i < noerror_table_.size()-1; i++)
+    {
+        std::cout << noerror_table_[i] << " ";
+    }
+    std::cout << noerror_table_[noerror_table_.size()-1] << "\n";
+}
+
+void LinkLayer::SetErrorTable(BITSET_VECTOR table) {
+    error_table_ = table;
+}
+
+BITSET_VECTOR LinkLayer::GetErrorTable() {
+    return error_table_;
+}
+
+void LinkLayer::SetNoErrorTable(BITSET_VECTOR table) {
+    noerror_table_ = table;
+}
+
+BITSET_VECTOR LinkLayer::GetNoErrorTable() {
+    return noerror_table_;
+}
+
+
 void LinkLayer::CharacterCount(BITSET_VECTOR table) {
     std::bitset<BYTE_LENGTH> table_size;
     table_size = table.size();
@@ -89,5 +122,35 @@ void LinkLayer::DecodeByteInsertion(BITSET_VECTOR table) {
 
 }
 
+void LinkLayer::ParityBit(BITSET_VECTOR table) {
+    
+    int counter = 0;
+    std::bitset<BYTE_LENGTH> even = 0; //se deu par, quero que fique par
+    std::bitset<BYTE_LENGTH> odd = 1; //se deu ímpar, quero que fique par
+    
 
+    for (size_t i = 0; i < table.size(); i++)
+    {
+        for (size_t j = 0; j < BYTE_LENGTH; j++)
+        {
+            if (table[i][j] != 0) {
+                counter++;
+            }
+        }
+        
+    }
 
+    if (counter%2 == 0) {
+        table.push_back(even);
+    }
+    else {
+        table.push_back(odd);
+    }
+
+    error_table_ = table;
+    
+}
+
+void LinkLayer::CRC(BITSET_VECTOR table) {
+    
+}

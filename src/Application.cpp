@@ -4,11 +4,11 @@
 #include "TransmissionEnvironment.h"
 #include "LinkLayer.h"
 
-Application::Application(int role_option, int codification_option, 
-int framing_option) {
-    role_ = role_option;
+Application::Application(int codification_option, int framing_option,
+int error_option) {
     codification_option_ = codification_option;
     framing_option_ = framing_option;
+    error_option_ = error_option;
 }
 
 void Application::SetCodeOption(int option) {
@@ -35,157 +35,6 @@ BITSET_VECTOR Application::GetBitStream() {
     return bit_stream_;
 }
 
-BITSET_VECTOR Application::Communicate() {
-
-    /* Switch that represent the communication start */
-    /* If the application is going to transmitt or recept is based on the role_
-    atributte
-    [1] Transmitter
-    [2] Receptor */
-
-    switch (role_)
-    {
-    case 1: {
-        ApplicationLayer transmission_application_layer;
-        
-        std::cout << "\n\nOriginal received message: " << this->GetMessage()
-        << "\n\n";
-        transmission_application_layer.SetBitStream(this->GetMessage());
-
-        /* Switch that represent the codification start */
-        /* The encodification that is going to be used is based on the
-        codification_option_ atributte
-        [1] Binary
-        [2] Manchester
-        [3] Bipolar */
-
-        switch (codification_option_)
-        {
-        case 1: {
-            BinaryCodification transmission_physical_layer;
-
-            transmission_physical_layer.Encode
-                (
-                transmission_application_layer.GetBitStream()
-                );
-            std::cout << "[Binary] Coded: ";
-            transmission_physical_layer.PrintEncodedTable();
-            
-            return transmission_physical_layer.GetEncodedTable();
-        }
-        case 2: {
-            ManchesterCodification transmission_physical_layer;
-            
-            transmission_physical_layer.Encode
-                (
-                transmission_application_layer.GetBitStream()
-                );
-            std::cout << "[Manchester] Coded: ";
-            transmission_physical_layer.PrintEncodedTable();
-            
-            return transmission_physical_layer.GetEncodedTable();
-        }
-        case 3: {
-            BipolarCodification transmission_physical_layer;
-            
-            transmission_physical_layer.Encode
-                (
-                transmission_application_layer.GetBitStream()
-                );
-            std::cout << "[Bipolar] Coded: ";
-            transmission_physical_layer.PrintEncodedTable();
-            
-            return transmission_physical_layer.GetEncodedTable();
-        }
-        default:
-            break;
-        }
-        break;
-    }
-
-    case 2: {
-        ApplicationLayer reception_application_layer;
-
-        /* Switch that represent the decodification start */
-        /* The decodification that is going to be used is based on the
-        codification_option_ atributte
-        [1] Binary
-        [2] Manchester
-        [3] Bipolar */
-
-        switch (codification_option_)
-        {
-        case 1: {
-            BinaryCodification reception_physical_layer;
-
-            reception_physical_layer.Decode
-                (
-                this->GetBitStream()
-                );
-            std::cout << "[Binary] Decoded: ";
-            reception_physical_layer.PrintDecodedTable();
-            
-            reception_application_layer.Translate
-                (
-                reception_physical_layer.GetDecodedTable()
-                );
-
-            std::cout << "\nTranslated received message: " 
-            << reception_application_layer.GetMessage() << "\n";
-
-            return reception_physical_layer.GetDecodedTable();
-        }
-        case 2: {
-            ManchesterCodification reception_physical_layer;
-            
-            reception_physical_layer.Decode
-                (
-                this->GetBitStream()
-                );
-            std::cout << "[Manchester] Decoded: ";
-            reception_physical_layer.PrintDecodedTable();
-            
-            
-            reception_application_layer.Translate
-                (
-                reception_physical_layer.GetDecodedTable()
-                );
-
-            std::cout << "\nTranslated received message: " 
-            << reception_application_layer.GetMessage() << "\n";
-
-            return reception_physical_layer.GetDecodedTable();
-        }
-        case 3: {
-            BipolarCodification reception_physical_layer;
-
-            reception_physical_layer.Decode
-                (
-                this->GetBitStream()
-                );
-            std::cout << "[Bipolar] Decoded: ";
-            reception_physical_layer.PrintDecodedTable();
-            
-            
-            reception_application_layer.Translate
-                (
-                reception_physical_layer.GetDecodedTable()
-                );
-
-            std::cout << "\nTranslated received message: " 
-            << reception_application_layer.GetMessage() << "\n";
-
-            return reception_physical_layer.GetDecodedTable();
-        }
-        default:
-            break;
-        }
-    }
-    default:
-        break;
-    }
-}
-
 
 BITSET_VECTOR Application::Transmit() {
     /* 
@@ -207,6 +56,22 @@ BITSET_VECTOR Application::Transmit() {
 
         transmission_application_layer.SetBitStream(this->GetMessage());
         aux_message = transmission_application_layer.GetBitStream();
+
+
+    switch (this->error_option_)
+    {
+    case 1:
+    {
+        LinkLayer transmission_link_layer;
+
+        transmission_link_layer.ParityBit(aux_message);
+        std::cout << "[ParityBit] Error Safety: ";
+        transmission_link_layer.PrintErrorTable();
+
+        aux_message = transmission_link_layer.GetErrorTable();
+        break;
+    }
+    }
 
     /* Switch that represent the framing start */
     /* The framing that is going to be used is based on the
@@ -301,6 +166,13 @@ void Application::Receive() {
     BITSET_VECTOR aux_message = this->bit_stream_;
     ApplicationLayer reception_application_layer;
 
+    /* Switch that represent the decodification start */
+    /* The decodification that is going to be used is based on the
+    codification_option_ atributte
+    [1] Binary
+    [2] Manchester
+    [3] Bipolar */
+
     switch (this->codification_option_) {
         case 1:
         {
@@ -342,6 +214,11 @@ void Application::Receive() {
             break;
     }
 
+    /* Switch that represent the unframing start */
+    /* The unframing that is going to be used is based on the
+    framing_option_ atributte
+    [1] Character Count
+    [2] Byte Insertion */
 
     switch (this->framing_option_)
     {
@@ -372,8 +249,6 @@ void Application::Receive() {
         default:
             std::cout << "[Invalid Framing Option] aí cê ramelou em menó";
     }
-
-    
 
     reception_application_layer.Translate(aux_message);
 

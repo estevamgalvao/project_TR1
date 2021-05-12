@@ -11,7 +11,6 @@ codification is going to be used */
 
 class Application {
     private:
-        int role_;
         int codification_option_;
         int framing_option_;
         int error_option_;
@@ -20,9 +19,8 @@ class Application {
         BITSET_VECTOR bit_stream_;
 
     public:
-        Application(int role_option, int codification_option,
-        int framing_option);
-        BITSET_VECTOR Communicate();
+        Application(int codification_option, int framing_option,
+        int error_option);
         BITSET_VECTOR Transmit();
         void Receive();
         void SetCodeOption(int option);
