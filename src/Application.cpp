@@ -4,9 +4,11 @@
 #include "TransmissionEnvironment.h"
 #include "LinkLayer.h"
 
-Application::Application(int role_option, int codification_option) {
+Application::Application(int role_option, int codification_option, 
+int framing_option) {
     role_ = role_option;
     codification_option_ = codification_option;
+    framing_option_ = framing_option;
 }
 
 void Application::SetCodeOption(int option) {
@@ -204,9 +206,22 @@ BITSET_VECTOR Application::Transmit() {
 
         transmission_link_layer.CharacterCount(aux_message);
         std::cout << "[CharacterCount] Framed: ";
-        
-    }
+        transmission_link_layer.PrintHeaderTable();
+
+        aux_message = transmission_link_layer.GetHeaderTable();
         break;
+    }
+    case 2:
+    {
+        LinkLayer transmission_link_layer;
+
+        transmission_link_layer.ByteInsertion(aux_message);
+        std::cout << "[ByteInsertion] Framed: ";
+        transmission_link_layer.PrintHeaderTable();
+
+        aux_message = transmission_link_layer.GetHeaderTable();
+        break;
+    }
     
     default:
         break;
@@ -259,6 +274,88 @@ BITSET_VECTOR Application::Transmit() {
 
 }
 
-BITSET_VECTOR Application::Receive() {
+void Application::Receive() {
+
+    BITSET_VECTOR aux_message = this->bit_stream_;
+    ApplicationLayer reception_application_layer;
+
+    switch (this->codification_option_) {
+        case 1:
+        {
+            BinaryCodification reception_physical_layer;
+
+            reception_physical_layer.Decode(aux_message);
+            std::cout << "[Binary] Decoded: ";
+            reception_physical_layer.PrintDecodedTable();
+            
+            aux_message = reception_physical_layer.GetDecodedTable();
+            break;
+        }
+
+        case 2:
+        {
+            ManchesterCodification reception_physical_layer;
+
+            reception_physical_layer.Decode(aux_message);
+            std::cout << "[Manchester] Decoded: ";
+            reception_physical_layer.PrintDecodedTable();
+            
+            aux_message = reception_physical_layer.GetDecodedTable();
+            break;
+        }
+
+        case 3:
+        {
+            BipolarCodification reception_physical_layer;
+
+            reception_physical_layer.Decode(aux_message);
+            std::cout << "[Bipolar] Decoded: ";
+            reception_physical_layer.PrintDecodedTable();
+            
+            aux_message = reception_physical_layer.GetDecodedTable();
+            break;
+        }
+
+        default:
+            break;
+    }
+
+
+    switch (this->framing_option_)
+    {
+        case 1:
+        {
+            LinkLayer reception_link_layer;
+
+            reception_link_layer.DecodeCharacterCount(aux_message);
+            std::cout << "[CharacterCount] Unframed: ";
+            reception_link_layer.PrintNoHeaderTable();
+
+            aux_message = reception_link_layer.GetNoHeaderTable();
+            break;
+        }
+
+        case 2:
+        {
+            LinkLayer reception_link_layer;
+
+            reception_link_layer.DecodeByteInsertion(aux_message);
+            std::cout << "[ByteInsertion] Unframed: ";
+            reception_link_layer.PrintNoHeaderTable();
+
+            aux_message = reception_link_layer.GetNoHeaderTable();
+            break;
+        }
+
+        default:
+            std::cout << "[Invalid Framing Option] aí cê ramelou em menó";
+    }
+
+    
+
+    reception_application_layer.Translate(aux_message);
+
+    std::cout << "\nTranslated received message: " 
+        << reception_application_layer.GetMessage() << "\n";
     
 }

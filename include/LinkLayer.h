@@ -11,9 +11,9 @@ class LinkLayer {
     public:
         LinkLayer();
         void CharacterCount(BITSET_VECTOR table);
-        void DecodeCharacterCount();
+        void DecodeCharacterCount(BITSET_VECTOR table);
         void ByteInsertion(BITSET_VECTOR table);
-        void DecodeByteInsertion();
+        void DecodeByteInsertion(BITSET_VECTOR table);
         //TODO
         /* 
 

@@ -23,12 +23,17 @@ int main()
     << "Select the desired codification option from the above ones: ";
     std::cin >> codification_option;
 
+    int framing_option;
+    std::cout << "[1] Character Count\n[2] Byte Insertion\n"
+    << "Select the desired framing option from the above ones: ";
+    std::cin >> framing_option;
+
     /* Applications objects initialized - transmissor and receptor */
     /* Transmission Enviroment that links the two Applications initialized */
 
     TransmissionEnvironment environment;    
-    Application transmission_app(1, codification_option);
-    Application reception_app(2, codification_option);
+    Application transmission_app(1, codification_option, framing_option);
+    Application reception_app(2, codification_option, framing_option);
 
     std::cout << "\nAPPLICATION STARTED\n";
     /* Application workflow */
@@ -49,37 +54,38 @@ int main()
     transmitted_message = environment.Transmit(encoded_message);
 
     reception_app.SetBitStream(transmitted_message);
-    decoded_message = reception_app.Communicate();
+    // decoded_message = reception_app.Communicate();
+    reception_app.Receive();
 
 
-    LinkLayer alou;
-    ApplicationLayer naruto;
+    // LinkLayer alou;
+    // ApplicationLayer naruto;
 
-    naruto.SetBitStream("lol");
+    // naruto.SetBitStream("lol");
 
-    alou.ByteInsertion(naruto.GetBitStream());
+    // alou.ByteInsertion(naruto.GetBitStream());
 
-    BITSET_VECTOR bit_stream_ = alou.GetHeaderTable();
+    // BITSET_VECTOR bit_stream_ = alou.GetHeaderTable();
 
 
-    std::cout << "\n\n\nCom LinkLayer: \t"; //<< std::bitset<BYTE_LENGTH>{"10000000"};
-    // std::cout << "\\\\\\";
-    for (size_t i = 0; i < bit_stream_.size()-1; i++)
-    {
-        std::cout << bit_stream_[i] << " ";
-    }
-    std::cout << bit_stream_[bit_stream_.size()-1] << "\n";
+    // std::cout << "\n\n\nCom LinkLayer: \t"; //<< std::bitset<BYTE_LENGTH>{"10000000"};
+    // // std::cout << "\\\\\\";
+    // for (size_t i = 0; i < bit_stream_.size()-1; i++)
+    // {
+    //     std::cout << bit_stream_[i] << " ";
+    // }
+    // std::cout << bit_stream_[bit_stream_.size()-1] << "\n";
     
-    alou.DecodeByteInsertion();
-    bit_stream_ = alou.GetNoHeaderTable();
+    // alou.DecodeByteInsertion();
+    // bit_stream_ = alou.GetNoHeaderTable();
 
-    std::cout << "\n\n\nSem LinkLayer: \t";
+    // std::cout << "\n\n\nSem LinkLayer: \t";
 
-    for (size_t i = 0; i < bit_stream_.size()-1; i++)
-    {
-        std::cout << bit_stream_[i] << " ";
-    }
-    std::cout << bit_stream_[bit_stream_.size()-1] << "\n";
+    // for (size_t i = 0; i < bit_stream_.size()-1; i++)
+    // {
+    //     std::cout << bit_stream_[i] << " ";
+    // }
+    // std::cout << bit_stream_[bit_stream_.size()-1] << "\n";
 
     return 0;
 };
