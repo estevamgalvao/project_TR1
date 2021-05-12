@@ -18,7 +18,8 @@ class LinkLayer {
         /* 
 
         */
-
+        void PrintHeaderTable();        
+        void PrintNoHeaderTable();
         void SetHeaderTable(BITSET_VECTOR table);
         BITSET_VECTOR GetHeaderTable();
         void SetNoHeaderTable(BITSET_VECTOR table);

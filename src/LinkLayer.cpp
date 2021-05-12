@@ -2,6 +2,22 @@
 
 LinkLayer::LinkLayer() {};
 
+void LinkLayer::PrintHeaderTable() {
+    for (size_t i = 0; i < header_table_.size()-1; i++)
+    {
+        std::cout << header_table_[i] << " ";
+    }
+    std::cout << header_table_[header_table_.size()-1] << "\n";
+}
+
+void LinkLayer::PrintNoHeaderTable() {
+    for (size_t i = 0; i < noheader_table_.size()-1; i++)
+    {
+        std::cout << noheader_table_[i] << " ";
+    }
+    std::cout << noheader_table_[noheader_table_.size()-1] << "\n";
+}
+
 void LinkLayer::SetHeaderTable(BITSET_VECTOR table) {
     header_table_ = table;
 }

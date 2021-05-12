@@ -2,6 +2,7 @@
 #include "ApplicationLayer.h"
 #include "PhysicalLayer.h"
 #include "TransmissionEnvironment.h"
+#include "LinkLayer.h"
 
 Application::Application(int role_option, int codification_option) {
     role_ = role_option;
@@ -195,16 +196,21 @@ BITSET_VECTOR Application::Transmit() {
         transmission_application_layer.SetBitStream(this->GetMessage());
         aux_message = transmission_application_layer.GetBitStream();
 
-    // switch (this->framing_option_)
-    // {
-    // case 1:
-    // {
-    // }
-    //     break;
+    switch (this->framing_option_)
+    {
+    case 1:
+    {
+        LinkLayer transmission_link_layer;
+
+        transmission_link_layer.CharacterCount(aux_message);
+        std::cout << "[CharacterCount] Framed: ";
+        
+    }
+        break;
     
-    // default:
-    //     break;
-    // }
+    default:
+        break;
+    }
 
 
     switch (this->codification_option_) {
