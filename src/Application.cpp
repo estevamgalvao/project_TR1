@@ -65,7 +65,7 @@ BITSET_VECTOR Application::Transmit() {
         LinkLayer transmission_link_layer;
 
         transmission_link_layer.ParityBit(aux_message);
-        std::cout << "[ParityBit] Error Safety: ";
+        std::cout << "[ParityBit] Error safety: \t\t";
         transmission_link_layer.PrintErrorTable();
 
         aux_message = transmission_link_layer.GetErrorTable();
@@ -86,7 +86,7 @@ BITSET_VECTOR Application::Transmit() {
         LinkLayer transmission_link_layer;
 
         transmission_link_layer.CharacterCount(aux_message);
-        std::cout << "[CharacterCount] Framed: ";
+        std::cout << "[CharacterCount] Framed: \t\t";
         transmission_link_layer.PrintHeaderTable();
 
         aux_message = transmission_link_layer.GetHeaderTable();
@@ -97,7 +97,7 @@ BITSET_VECTOR Application::Transmit() {
         LinkLayer transmission_link_layer;
 
         transmission_link_layer.ByteInsertion(aux_message);
-        std::cout << "[ByteInsertion] Framed: ";
+        std::cout << "[ByteInsertion] Framed: \t\t";
         transmission_link_layer.PrintHeaderTable();
 
         aux_message = transmission_link_layer.GetHeaderTable();
@@ -121,7 +121,7 @@ BITSET_VECTOR Application::Transmit() {
             BinaryCodification transmission_physical_layer;
 
             transmission_physical_layer.Encode(aux_message);
-            std::cout << "[Binary] Coded: ";
+            std::cout << "[Binary] Coded: \t\t";
             transmission_physical_layer.PrintEncodedTable();
             
             aux_message = transmission_physical_layer.GetEncodedTable();
@@ -133,7 +133,7 @@ BITSET_VECTOR Application::Transmit() {
             ManchesterCodification transmission_physical_layer;
             
             transmission_physical_layer.Encode(aux_message);
-            std::cout << "[Manchester] Coded: ";
+            std::cout << "[Manchester] Coded: \t\t";
             transmission_physical_layer.PrintEncodedTable();
             
             aux_message = transmission_physical_layer.GetEncodedTable();
@@ -145,7 +145,7 @@ BITSET_VECTOR Application::Transmit() {
             BipolarCodification transmission_physical_layer;
             
             transmission_physical_layer.Encode(aux_message);
-            std::cout << "[Bipolar] Coded: ";
+            std::cout << "[Bipolar] Coded: \t\t";
             transmission_physical_layer.PrintEncodedTable();
             
             aux_message = transmission_physical_layer.GetEncodedTable();
@@ -179,7 +179,7 @@ void Application::Receive() {
             BinaryCodification reception_physical_layer;
 
             reception_physical_layer.Decode(aux_message);
-            std::cout << "[Binary] Decoded: ";
+            std::cout << "[Binary] Decoded: \t\t";
             reception_physical_layer.PrintDecodedTable();
             
             aux_message = reception_physical_layer.GetDecodedTable();
@@ -191,7 +191,7 @@ void Application::Receive() {
             ManchesterCodification reception_physical_layer;
 
             reception_physical_layer.Decode(aux_message);
-            std::cout << "[Manchester] Decoded: ";
+            std::cout << "[Manchester] Decoded: \t\t";
             reception_physical_layer.PrintDecodedTable();
             
             aux_message = reception_physical_layer.GetDecodedTable();
@@ -203,7 +203,7 @@ void Application::Receive() {
             BipolarCodification reception_physical_layer;
 
             reception_physical_layer.Decode(aux_message);
-            std::cout << "[Bipolar] Decoded: ";
+            std::cout << "[Bipolar] Decoded: \t\t";
             reception_physical_layer.PrintDecodedTable();
             
             aux_message = reception_physical_layer.GetDecodedTable();
@@ -227,7 +227,7 @@ void Application::Receive() {
             LinkLayer reception_link_layer;
 
             reception_link_layer.DecodeCharacterCount(aux_message);
-            std::cout << "[CharacterCount] Unframed: ";
+            std::cout << "[CharacterCount] Unframed: \t\t";
             reception_link_layer.PrintNoHeaderTable();
 
             aux_message = reception_link_layer.GetNoHeaderTable();
@@ -239,7 +239,7 @@ void Application::Receive() {
             LinkLayer reception_link_layer;
 
             reception_link_layer.DecodeByteInsertion(aux_message);
-            std::cout << "[ByteInsertion] Unframed: ";
+            std::cout << "[ByteInsertion] Unframed: \t\t";
             reception_link_layer.PrintNoHeaderTable();
 
             aux_message = reception_link_layer.GetNoHeaderTable();
@@ -248,6 +248,21 @@ void Application::Receive() {
 
         default:
             std::cout << "[Invalid Framing Option] aí cê ramelou em menó";
+    }
+
+    switch (this->error_option_)
+    {
+    case 1:
+    {
+        LinkLayer transmission_link_layer;
+
+        transmission_link_layer.DecodeParityBit(aux_message);
+        std::cout << "[ParityBit] Decode error safety: \t\t";
+        transmission_link_layer.PrintNoErrorTable();
+
+        aux_message = transmission_link_layer.GetNoErrorTable();
+        break;
+    }
     }
 
     reception_application_layer.Translate(aux_message);

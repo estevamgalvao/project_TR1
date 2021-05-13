@@ -123,7 +123,7 @@ void LinkLayer::DecodeByteInsertion(BITSET_VECTOR table) {
 }
 
 void LinkLayer::ParityBit(BITSET_VECTOR table) {
-    
+
     int counter = 0;
     std::bitset<BYTE_LENGTH> even = 0; //se deu par, quero que fique par
     std::bitset<BYTE_LENGTH> odd = 1; //se deu ímpar, quero que fique par
@@ -151,6 +151,18 @@ void LinkLayer::ParityBit(BITSET_VECTOR table) {
     
 }
 
+void LinkLayer::DecodeParityBit(BITSET_VECTOR table) {
+    BITSET_VECTOR aux_table = table;
+    
+    aux_table.pop_back();
+
+    noerror_table_ = aux_table;
+}
+
 void LinkLayer::CRC(BITSET_VECTOR table) {
+    
+}
+
+void LinkLayer::DecodeCRC(BITSET_VECTOR table) {
     
 }
