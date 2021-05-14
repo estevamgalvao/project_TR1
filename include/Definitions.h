@@ -16,8 +16,6 @@
 #define BYTE_ESC std::bitset<BYTE_LENGTH>{"10110000"} //ASCII 176
 // #define BYTE_ESC std::bitset<BYTE_LENGTH>{"01100001"}
 
-
-#define BIT_FLAG (uint8_t) 0b01111110
 #define BIT_8 (uint8_t) 0b10000000
 #define BIT_1 (uint8_t) 0x01
 #define CRC_POLYNOMIAL 0xEDB88320

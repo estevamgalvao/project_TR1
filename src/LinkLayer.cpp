@@ -158,11 +158,19 @@ void LinkLayer::DecodeParityBit(BITSET_VECTOR table) {
 
     noerror_table_ = aux_table;
 }
-
-void LinkLayer::CRC(BITSET_VECTOR table) {
+/* To do */
+// void LinkLayer::CRC(BITSET_VECTOR table) {
     
-}
+// }
 
-void LinkLayer::DecodeCRC(BITSET_VECTOR table) {
+// void LinkLayer::DecodeCRC(BITSET_VECTOR table) {
     
-}
+// }
+
+// void LinkLayer::Hamming(BITSET_VECTOR table) {
+//     //quadro tem tamanho variados, vários bytes
+//     //multiplo de 8
+// }
+
+// void LinkLayer::DecodeHamming(BITSET_VECTOR table) {
+// }

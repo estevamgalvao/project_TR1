@@ -38,7 +38,8 @@ BITSET_VECTOR Application::GetBitStream() {
 
 BITSET_VECTOR Application::Transmit() {
     /* 
-    Every switch case in that function [Transmit] is coded following this: 
+    Every switch case in that function [Transmit]
+    is coded following this: 
     
     initiate case layer
     
@@ -57,6 +58,12 @@ BITSET_VECTOR Application::Transmit() {
         transmission_application_layer.SetBitStream(this->GetMessage());
         aux_message = transmission_application_layer.GetBitStream();
 
+    /* Switch that represent the error correction/detection start */
+    /* The correction/detection that is going to be used is based on the
+    error_option_ atributte
+    [1] Parity Bit
+    [2] CRC 
+    [3] Hamming */
 
     switch (this->error_option_)
     {
@@ -71,6 +78,9 @@ BITSET_VECTOR Application::Transmit() {
         aux_message = transmission_link_layer.GetErrorTable();
         break;
     }
+    default:
+        std::cout << "Missing option.";
+
     }
 
     /* Switch that represent the framing start */
@@ -105,7 +115,7 @@ BITSET_VECTOR Application::Transmit() {
     }
     
     default:
-        break;
+        std::cout << "Missing option.";
     }
 
     /* Switch that represent the codification start */
@@ -153,7 +163,8 @@ BITSET_VECTOR Application::Transmit() {
         }
 
         default:
-            std::cout << "aí cê ramelou em menó";
+            std::cout << "Missing option.";
+
     }
 
     return aux_message;
@@ -211,7 +222,7 @@ void Application::Receive() {
         }
 
         default:
-            break;
+            std::cout << "Missing option.";
     }
 
     /* Switch that represent the unframing start */
@@ -247,7 +258,8 @@ void Application::Receive() {
         }
 
         default:
-            std::cout << "[Invalid Framing Option] aí cê ramelou em menó";
+            std::cout << "Missing option.";
+
     }
 
     switch (this->error_option_)
@@ -263,6 +275,8 @@ void Application::Receive() {
         aux_message = transmission_link_layer.GetNoErrorTable();
         break;
     }
+        default:
+        std::cout << "Missing option.";
     }
 
     reception_application_layer.Translate(aux_message);

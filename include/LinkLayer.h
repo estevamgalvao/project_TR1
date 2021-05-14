@@ -21,8 +21,12 @@ class LinkLayer {
        
         void ParityBit(BITSET_VECTOR table);
         void DecodeParityBit(BITSET_VECTOR table);
-        void CRC(BITSET_VECTOR table);
-        void DecodeCRC(BITSET_VECTOR table);
+        // void CRC(BITSET_VECTOR table);
+        // void DecodeCRC(BITSET_VECTOR table);
+
+        // void Hamming(BITSET_VECTOR table);
+        // void DecodeHamming(BITSET_VECTOR table);
+
 
         void PrintHeaderTable();        
         void PrintNoHeaderTable();
